@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="todo_app.TodoSidebar">
+        <div class="o_todo_sidebar_container" style="display: flex;">
+            <div class="o_sidebar" style="width: 200px; border-right: 1px solid #ccc; padding: 1rem;">
+                <h4>Groups</h4>
+                <ul>
+                    <t t-foreach="groups.list" t-as="group">
+                        <li>
+                            <a href="#" t-on-click.prevent="() => openGroup(group.id)">
+                                <t t-esc="group.name"/>
+                            </a>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+            <div class="o_main_content" style="flex: 1; padding: 1rem;">
+                <t t-component="ListRenderer" t-props="props"/>
+            </div>
+        </div>
+    </t>
+</templates>

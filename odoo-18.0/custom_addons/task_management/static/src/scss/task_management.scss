@@ -1,0 +1,38 @@
+.o_kanban_view.o_kanban_task {
+    .o_kanban_group {
+        width: 250px;
+
+        .o_kanban_header {
+            background-color: #f8f9fa;
+            font-weight: bold;
+            padding: 8px;
+
+            .o_kanban_header_title {
+                font-size: 14px;
+            }
+        }
+    }
+
+    .o_kanban_record {
+        margin: 4px 8px;
+        border-radius: 3px;
+        border-left: 3px solid transparent;
+
+        &.oe_kanban_color_1 { border-left-color: #F06050; }
+        &.oe_kanban_color_2 { border-left-color: #F4A460; }
+        &.oe_kanban_color_3 { border-left-color: #F7CD1F; }
+        &.oe_kanban_color_4 { border-left-color: #6CC1ED; }
+        &.oe_kanban_color_5 { border-left-color: #814968; }
+        &.oe_kanban_color_6 { border-left-color: #EB7E7F; }
+        &.oe_kanban_color_7 { border-left-color: #2C8397; }
+        &.oe_kanban_color_8 { border-left-color: #475577; }
+        &.oe_kanban_color_9 { border-left-color: #D6145F; }
+        &.oe_kanban_color_10 { border-left-color: #30C381; }
+
+        .o_kanban_record_top {
+            .o_kanban_record_headings {
+                font-weight: bold;
+            }
+        }
+    }
+}

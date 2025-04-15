@@ -1,0 +1,143 @@
+<odoo>
+    <!-- FORM VIEW -->
+    <record id="view_todo_task_form" model="ir.ui.view">
+        <field name="name">todo.task.form</field>
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <form string="Todo task">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="description"/>
+                        <field name="author"/>
+                        <field name="website"/>
+                        <field name="done"/>
+                        <field name="due_date"/>
+                        <field name="group_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- LIST VIEW -->
+    <record id="view_todo_task_list" model="ir.ui.view">
+        <field name="name">todo.task.list</field>
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <list string="Todo Tasks">
+                <field name="name"/>
+                <field name="description"/>
+                <field name="author"/>
+                <field name="website"/>
+                <field name="done"/>
+                <field name="due_date"/>
+                <field name="group_id"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- SEARCH VIEW (Thêm filter theo group) -->
+    <record id="view_todo_task_search" model="ir.ui.view">
+        <field name="name">todo.task.search</field>
+        <field name="model">todo.task</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="group_id"/>
+                <filter name="filter_by_group" string="Group" context="{'group_by': 'group_id'}"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- ACTION -->
+    <record id="todo_task_action" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">todo.task</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_todo_task_search"/>
+    </record>
+
+    <!-- MENUS -->
+    <menuitem id="todo_menu" name="TodoList" sequence="10"/>
+    <menuitem id="todo_task_menu" name="Tasks" parent="todo_menu" action="todo_task_action"/>
+
+    <!-- SIDEBAR TEMPLATE (QWeb) -->
+    <template id="todo_task_sidebar" name="Task Sidebar">
+        <t t-name="todo.task.sidebar">
+            <div class="oe_structure todo-sidebar" style="width: 250px; float: left; padding: 16px; background: #f2f2f2;">
+                <h4>Group Tasks</h4>
+                <ul>
+                    <t t-foreach="groups" t-as="group">
+                        <li>
+                            <strong t-esc="group.name"/> (<t t-esc="group.task_ids | length"/>)
+                            <ul>
+                                <t t-foreach="group.task_ids" t-as="task">
+                                    <li t-esc="task.name"/>
+                                </t>
+                            </ul>
+                        </li>
+                    </t>
+                </ul>
+            </div>
+        </t>
+    </template>
+    <!-- VIEW: Task Group Tree -->
+    <record id="view_todo_group_tree" model="ir.ui.view">
+        <field name="name">todo.group.tree</field>
+        <field name="model">todo.group</field>
+        <field name="type">list</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="task_ids"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_todo_group_form" model="ir.ui.view">
+        <field name="name">todo.group.form</field>
+        <field name="model">todo.group</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="task_ids">
+                            <list editable="bottom">
+                                <field name="name"/>
+                            </list>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- ACTION: View Group List -->
+    <record id="action_todo_group" model="ir.actions.act_window">
+        <field name="name">Task Groups</field>
+        <field name="res_model">todo.group</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- ACTION: View Tasks with Sidebar -->
+    <record id="action_todo_task_with_group_sidebar" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">todo.task</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_todo_task_search"/>
+    </record>
+
+    <record id="action_todo_sidebar" model="ir.actions.client">
+        <field name="name">Todo with Sidebar</field>
+        <field name="tag">todo_sidebar_action</field>
+    </record>
+
+    <!-- MENU -->
+    <menuitem id="menu_todo_sidebar" name="Sidebar Tasks" parent="todo_menu" action="action_todo_sidebar"/>
+    <menuitem id="menu_todo_group" name="Groups" parent="todo_menu" action="action_todo_group" sequence="20"/>
+    <menuitem id="menu_todo_task_with_sidebar" name="Tasks" parent="todo_menu" action="action_todo_task_with_group_sidebar"/>
+
+</odoo>
