@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_task_group_user,task.group.user,model_task_group,base.group_user,1,1,1,0
-access_task_group_manager,task.group.manager,model_task_group,task_management.group_task_manager,1,1,1,1
-access_task_task_user,task.task.user,model_task_task,base.group_user,1,1,1,0
-access_task_task_manager,task.task.manager,model_task_task,task_management.group_task_manager,1,1,1,1
-access_task_tag_user,task.tag.user,model_task_tag,base.group_user,1,1,1,0
-access_task_tag_manager,task.tag.manager,model_task_tag,task_management.group_task_manager,1,1,1,1
